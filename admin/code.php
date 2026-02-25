@@ -128,4 +128,86 @@ if(isset($_POST['updateCategory'])){
                 redirect('categories-edit.php?id='.$categoryId,'Something went wrong!');
             }
 }
+
+if(isset($_POST['saveProduct'])){
+    $category_id= validate($_POST['category_id']);
+    $name= validate($_POST['name']);
+        $description= validate($_POST['descryption']);
+          $price= validate($_POST['price']);
+            $quantity= validate($_POST['quantity']);
+        $status= validate($_POST['status'])==true ?1:0;
+        if($_FILES['image'] ['size'] >0){
+        $path="../assets/uploads/products";
+        $image_ext =pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+        $filename=time().'.'.$image_ext;
+        move_uploaded_file($_FILES['image']['tmp_name'],$path."/".$filename);
+        $finalImage="../assets/uploads/products/".$filename;
+
+        }else{
+        $finalImage ='';
+        }
+         $data = [
+   'category_id'      => $category_id,
+   'name'      => $name,
+   'descryption'     => $description,
+   'price'      => $price,
+   'quantity'      => $quantity,
+   'image'     => $finalImage,
+   'status'    => $status
+];
+
+            $result=insert('products',$data);
+            if($result){
+                redirect('products.php','Product created successfully!');
+            }
+            else{
+                redirect('products-create.php?id=','Something went wrong!');
+            }
+}
+
+
+if(isset($_POST['updateProduct']))
+    {
+       $product_id= validate($_POST['product_id']);
+       $productData=getById('products',$product_id);
+       if(!$productData){
+        redirect ('products.php','No such products found');
+       }
+       $category_id= validate($_POST['category_id']);
+    $name= validate($_POST['name']);
+        $description= validate($_POST['descryption']);
+          $price= validate($_POST['price']);
+            $quantity= validate($_POST['quantity']);
+        $status= validate($_POST['status'])==true ?1:0;
+        if($_FILES['image'] ['size'] >0){
+        $path="../assets/uploads/products";
+        $image_ext =pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+        $filename=time().'.'.$image_ext;
+        move_uploaded_file($_FILES['image']['tmp_name'],$path."/".$filename);
+        $finalImage="../assets/uploads/products/".$filename;
+        $deleteImage="../".$productData['data']['image'];
+        if(file_exists($deleteImage)){
+            unlink($deleteImage);
+        }
+        }else{
+        $finalImage =$productData['data']['image'];
+        }
+         $data = [
+   'category_id'      => $category_id,
+   'name'      => $name,
+   'descryption'     => $description,
+   'price'      => $price,
+   'quantity'      => $quantity,
+   'image'     => $finalImage,
+   'status'    => $status
+];
+
+            $result=update('products',$product_id,$data);
+            if($result){
+                redirect('products-edit.php?id='.$product_id,'Product updated successfully!');
+            }
+            else{
+                redirect('products-edit.php?id='.$product_id,'Something went wrong!');
+            }   
+    }
 ?>
