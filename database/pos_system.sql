@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2026 at 10:26 AM
+-- Generation Time: Feb 26, 2026 at 09:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,6 +59,39 @@ CREATE TABLE `categories` (
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=visible,1=hidden'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=visible,1=hidden',
+  `created_at` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `descryption` mediumtext NOT NULL,
+  `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=visible,1=hidden',
+  `created_at` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -76,6 +109,18 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -89,6 +134,18 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
