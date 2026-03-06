@@ -21,8 +21,8 @@
                      
       ?>
         <div class="table-responsive">
-            <div class="table table-striped table-bordered ">
-                <table>
+            <table class="table table-striped table-bordered ">
+                
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -48,8 +48,8 @@
 
                    
                 </tbody>
-                    </table>
-            </div>
+                    
+            </table>
              <?php 
                      }
                     else{

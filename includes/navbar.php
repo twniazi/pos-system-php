@@ -1,7 +1,7 @@
  <nav class=" navbar navbar-expand-lg  bg-white shadow">
            <div class="container">
             <a class="navbar-brand">
-                POS SYSTEM IN php Mysql
+                POS SYSTEM IN PHP MySQL
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=""> 
                  <span class="navbar-toggler-icon"></span>

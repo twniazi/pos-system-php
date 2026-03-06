@@ -7,7 +7,7 @@
 <div class="container-fluid px-4">
 <div class="card mt-4 shadow-sm">
     <div class="card-header">
-        <h4 class="mb=0">Edit Admin</h4>
+        <h4 class="mb-0">Edit Admin</h4>
         <a href="admins.php" class="btn btn-danger float-end">Back</a>
     </div>
     <div class="card-body">

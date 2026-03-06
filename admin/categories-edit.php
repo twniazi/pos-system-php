@@ -7,7 +7,7 @@
 <div class="container-fluid px-4">
 <div class="card mt-4 shadow-sm">
     <div class="card-header">
-        <h4 class="mb=0">Edit Category</h4>
+        <h4 class="mb-0">Edit Category</h4>
         <a href="categories.php" class="btn btn-primary float-end">Back</a>
     </div>
     <div class="card-body">
@@ -19,7 +19,7 @@
        <form action="code.php" method="POST">
 
         <?php 
-            $parmValue=checkParmId('id');
+            $parmValue=checkParamId('id');
             if(!is_numeric($parmValue)){
                 echo '<h5>'.$parmValue'</h5>';
                 return false;

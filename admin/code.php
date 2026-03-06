@@ -7,10 +7,10 @@ if(isset($_POST['saveAdmin']))
         $email= validate($_POST['email']);
         $password= validate($_POST['password']);
         $phone= validate($_POST['phone']);
-        $is_ban= isset($_POST['is_ban']) == true ?1:0;
+        $is_ban= isset($_POST['is_ban']) == true ? 1:0;
 
         if($name !='' && $email != '' && $password !=''){
-            $emailCheck =mysqli_query($conn,"SELECT * from admins WHERE email='$email'");
+            $emailCheck =mysqli_query($conn,"SELECT * FROM  admins WHERE email='$email'");
             if($emailCheck){
                 if(mysqli_num_rows($emailCheck) >0){
                     redirect('admins-create.php','Email Already used by another user.');
@@ -93,7 +93,7 @@ if(isset($_POST['updateAdmin']))
     if(isset($_POST['saveCategory'])){
          $name= validate($_POST['name']);
         $description= validate($_POST['descryption']);
-        $status= validate($_POST['status'])==true ?1:0;
+        $status= isset($_POST['status'])==true ?1:0;
          $data = [
    'name'      => $name,
    'descryption'     => $description,
@@ -112,6 +112,7 @@ if(isset($_POST['updateAdmin']))
 //update category
 if(isset($_POST['updateCategory'])){
         $categoryId= validate($_POST['categoryId']);
+        $name= validate($_POST['name']);
         $description= validate($_POST['descryption']);
         $status= validate($_POST['status'])==true ?1:0;
          $data = [

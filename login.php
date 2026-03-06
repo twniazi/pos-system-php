@@ -1,8 +1,11 @@
-<?php include('includes/header.php');
+<?php 
+include('includes/header.php');
 
-if(isset($_SESSION['loggedIn'])){
+if(isset($_SESSION['loggedIn'])) {
 ?>
-<script>window.location.href='index.php';</script>
+<script>
+window.location.href = "index.php";
+</script>
 <?php
 }
 ?>
@@ -25,7 +28,7 @@ if(isset($_SESSION['loggedIn'])){
                             <input type="passowrd" name="password" class="form-control" required>
                         </div>
                         <div class="my-3">
-                            <button type="submit" name="loginBtn" class="btn btn-primary w-100 mt-2"></button>
+                            <button type="submit" name="loginBtn" class="btn btn-primary w-100 mt-2">Sign In</button>
                         </div>
                     </form>
                 </div>

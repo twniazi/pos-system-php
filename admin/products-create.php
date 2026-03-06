@@ -7,7 +7,7 @@
 <div class="container-fluid px-4">
 <div class="card mt-4 shadow-sm">
     <div class="card-header">
-        <h4 class="mb=0">Add Product</h4>
+        <h4 class="mb-0">Add Product</h4>
         <a href="products.php" class="btn btn-primary float-end">Back</a>
     </div>
     <div class="card-body">

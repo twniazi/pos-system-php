@@ -14,7 +14,7 @@ function validate($inputData){
 function redirect($url,$status)
 {
     $_SESSION['status']=$status;
-    header('location'.$url);
+    header('location:'.$url);
     exit(0);
 }
 //display messages or status after any process.
@@ -26,6 +26,18 @@ if (isset($_SESSION['status'])) {
           </div>';
 
     unset($_SESSION['status']);
+}
+
+//alert Message function
+function alertMessage(){
+    if(isset($_SESSION['status'])){
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h6>'.$_SESSION['status'].'</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+
+        unset($_SESSION['status']);
+    }
 }
 
 
@@ -67,10 +79,10 @@ function getAll($tableName,$status= NULL)
 
    if($status=='status')
     {
-        $query="SELECT * from $table WHERE status ='0'";
+        $query="SELECT * FROM $table WHERE status ='0'";
     }
     else{
-        $query="SELECT * from $table";
+        $query="SELECT * FROM $table";
     }
     return mysqli_query($conn,$query);
 }
@@ -80,7 +92,7 @@ function getById($tableName,$id)
     global $conn;
     $table = validate($tableName);
     $id= validate($id);
-    $query ="SELECT * from $table WHERE id='$id' LIMIT 1";
+    $query ="SELECT * FROM $table WHERE id='$id' LIMIT 1";
     $result =mysqli_query($conn,$query);
 
     if($result){
@@ -116,22 +128,12 @@ function delete($tableName,$id){
     global $conn;
     $table = validate($tableName);
     $id= validate($id);
-    $query ="DELETE * from $table WHERE id='$id' LIMIT 1";
-    $result =mysqli_query($conn,$query);
+    $query ="DELETE * FROM $table WHERE id='$id' LIMIT 1";
+    $result = mysqli_query($conn,$query);
     return $result;
 }
 
-//alert Message function
-function alertMessage(){
-    if(isset($_SESSION['status'])){
-        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>'.$_SESSION['status'].'</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>';
 
-        unset($_SESSION['status']);
-    }
-}
 
 //check parameter
 function checkParamId($type){
@@ -151,5 +153,29 @@ function logoutSession()
 {
     unset($_SESSION['loggedIn']);
     unset($_SESSION['loggedInUser']);
+}
+
+function jsonResponse($status,$status_type,$message){
+    $response=[
+        'status'=>$status,
+        'status_type'=>$status_type,
+        'message'=>$message
+    ];
+    echo json_encode($response);
+}
+
+function getCount($tableName)
+{
+    global $conn;
+    $table=validate($tableName);
+    $query="SELECT * FROM $table";
+    $query_run=mysqli_query($conn,$query);
+    if($query_run){
+        $totalCount=mysqli_num_rows($query_run);
+        return $totalCount;
+    }
+    else{
+        return '<h5>something went wrong</h5>';
+    }
 }
 ?>
