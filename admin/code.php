@@ -77,7 +77,7 @@ if(isset($_POST['updateAdmin']))
 
             $result=update('admins',$adminId,$data);
             if($result){
-                redirect('admins-edit.php?id='.$adminId,'Admin updated successfully!');
+                redirect('admins.php?id='.$adminId,'Admin updated successfully!');
             }
             else{
                 redirect('admins-create.php?id='.$adminId,'Something went wrong!');
@@ -123,7 +123,7 @@ if(isset($_POST['updateCategory'])){
 
             $result=update('categories',$categoryId,$data);
             if($result){
-                redirect('categories-edit.php?id='.$categoryId,'Category updated successfully!');
+                redirect('categories.php?id='.$categoryId,'Category updated successfully!');
             }
             else{
                 redirect('categories-edit.php?id='.$categoryId,'Something went wrong!');
@@ -222,7 +222,7 @@ if(isset($_POST['saveCustomer'])){
         $emailCheck=mysqli_query($conn,"SELECT * FROM customers WHERE email='$email'");
         if($emailCheck){
             if(mysqli_num_rows($emailCheck)){
-                redirect ('customers.php','Email already used by another user.')
+                redirect ('customers.php','Email already used by another user.');
             }
         }
               $data = [
@@ -258,7 +258,7 @@ if(isset($_POST['updateCustomer'])){
         $emailCheck=mysqli_query($conn,"SELECT * FROM customers WHERE email='$email'AND id!='$customerId'");
         if($emailCheck){
             if(mysqli_num_rows($emailCheck) >0){
-                redirect ('customers-edit.php?id='.$customerId,'Email already used by another user.')
+                redirect ('customers-edit.php?id='.$customerId,'Email already used by another user.');
             }
         }
               $data = [
@@ -272,7 +272,7 @@ if(isset($_POST['updateCustomer'])){
 
             $result=update('customers',$customerId,$data);
             if($result){
-                redirect('customers-edit.php?id='.$customer_id,'Customer updated successfully!');
+                redirect('customers.php?id='.$customer_id,'Customer updated successfully!');
             }
             else{
                 redirect('customers-edit.php?id='.$customer_id,'Something went wrong!');
@@ -281,6 +281,6 @@ if(isset($_POST['updateCustomer'])){
     else{
          redirect('customers-edit.php?id='.$customer_id,'please filled the required fileds!');
     }
-    
+}
 
 ?>

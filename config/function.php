@@ -55,18 +55,20 @@ function insert($tableName,$data){
 }
 
 //update data using this function
-function update($tableName,$id,$data){
-    global $conn;
+function update($tableName, $id, $data){
+    global $conn; // <-- make sure this is $conn, not $con
     $table = validate($tableName);
-    $id= validate($id);
-    $updateDataString ="";
-    foreach($data  as $column =>$value)
-        {
-             $updateDataString .=$column.='='."'$value',";
-        }
-    $finalUpdateData =substr(trim($updateDataString),0,-1);
-    $query="UPDATE $table SET $finalUpdateData WHERE id='$id'";
-    $result=mysqli_query($con,$query);
+    $id = validate($id);
+
+    $updateDataString = "";
+    foreach($data as $column => $value){
+        $updateDataString .= $column . "='" . $value . "',";
+    }
+
+    $finalUpdateData = rtrim($updateDataString, ','); // remove trailing comma
+
+    $query = "UPDATE $table SET $finalUpdateData WHERE id='$id'";
+    $result = mysqli_query($conn, $query); // <-- $conn here
     return $result;
 }
 
@@ -124,12 +126,12 @@ function getById($tableName,$id)
 }
 
 //delete data from database by using id
-function delete($tableName,$id){
+function delete($tableName, $id){
     global $conn;
     $table = validate($tableName);
-    $id= validate($id);
-    $query ="DELETE * FROM $table WHERE id='$id' LIMIT 1";
-    $result = mysqli_query($conn,$query);
+    $id = validate($id);
+    $query = "DELETE FROM $table WHERE id='$id' LIMIT 1"; // removed '*'
+    $result = mysqli_query($conn, $query);
     return $result;
 }
 

@@ -28,14 +28,14 @@
                     if(mysqli_num_rows($categories) >0)
                         {
                         foreach($categories as $cateItem){
-                            echo  '<option value="">'.$cateItem['id'].''.$cateItem['name'].'</option>'
+                            echo  '<option value="">'.$cateItem['id'].''.$cateItem['name'].'</option>';
 
                         }
                         }else{
-                            echo  '<option value="">No categories Found.</option>'
+                            echo  '<option value="">No categories Found.</option>';
                         }
                     }else{
-                        echo  '<option value="">Something Went Wrongs</option>'
+                        echo  '<option value="">Something Went Wrongs</option>';
                     }
 
 
@@ -65,7 +65,7 @@
                 <input type="file" name="iamge"  required class="form-control">
             </div>
             <div class="col-md-6">
-                <label>Status (Unchecked=Visible,Checked=Hidden)</label>
+                <label>Status</label>
                 <br>
                 <input type="checkbox" name="status" style="width:30px;height:30px";>
             </div>

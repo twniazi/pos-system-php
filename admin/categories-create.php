@@ -28,7 +28,7 @@
                 <textarea name="descryption" class="form-control" rows="3"></textarea>
             </div>
             <div class="col-md-6">
-                <label>Status (Unchecked=Visible,Checked=Hidden)</label>
+                <label>Status </label>
                 <br>
                 <input type="checkbox" name="status" style="width:30px;height:30px";>
             </div>

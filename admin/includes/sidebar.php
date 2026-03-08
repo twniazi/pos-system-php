@@ -1,5 +1,5 @@
   <?php
-$page=substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME']),"/"+1);
+$page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
 
   ?>
   
@@ -21,30 +21,26 @@ $page=substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME']),"/"+1);
                                 Orders
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link 
-                            <?=($page=='categories-create.php') || ($page=='categories.php') ?'active':'collapse active':'collapsed';?>
-                            "
-                            href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Categories
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse  <?=($page=='categories-create.php')? || ($page=='categories.php'):'show':'';?>"
-                             
-                             
-                            id="collapseCategory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link  <?=$page=='categories-create.php'?'active':'';?>" href="categories-create.php">Create Category</a>
-                                    <a class="nav-link  <?=$page=='categories.php'?'active':'';?>" href="categories.php">View Categories</a>
-                                </nav>
-                            </div>
+                            <a class="nav-link <?= ($page=='categories-create.php' || $page=='categories.php') ? 'active' : 'collapsed'; ?>"
+   href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="<?= ($page=='categories-create.php' || $page=='categories.php') ? 'true' : 'false'; ?>" aria-controls="collapseCategory">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    Categories
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+</a>
 
-                             <a class="nav-link <?=($page=='products-create.php')? || ($page=='products.php'):'show':'';?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+<div class="collapse <?= ($page=='categories-create.php' || $page=='categories.php') ? 'show' : ''; ?>" id="collapseCategory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link <?= $page=='categories-create.php' ? 'active' : ''; ?>" href="categories-create.php">Create Category</a>
+        <a class="nav-link <?= $page=='categories.php' ? 'active' : ''; ?>" href="categories.php">View Categories</a>
+    </nav>
+</div>
+
+                             <a class="nav-link <?= ($page=='products-create.php' || $page=='products.php') ? 'show' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Products
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse <?=($page=='products-create.php')? || ($page=='products.php'):'show':'';?>" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse <?= ($page=='products-create.php' || $page=='products.php') ? 'show' : ''; ?>" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link  <?=$page=='products-create.php'?'active':'';?>" href="products-create.php">Create Product</a>
                                     <a class="nav-link  <?=$page=='products.php'?'active':'';?>" href="products.php">View Products</a>

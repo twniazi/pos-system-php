@@ -21,8 +21,8 @@
                      
       ?>
         <div class="table-responsive">
-            <div class="table table-striped table-bordered ">
-                <table>
+            <table class="table table-striped table-bordered ">
+               
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -53,8 +53,8 @@
                             ?>          
                         </td>
                         <td>
-                           <a href="customers-edit.php?id=?<?=$item['id'];?>" class="btn btn-success btn-sm">Edit</a>
-                           <a href="customers-delete.php?id=?<?=$item['id'];?>" class="btn btn-danger btn-sm"
+                           <a href="customers-edit.php?id=<?=$item['id'];?>" class="btn btn-success btn-sm">Edit</a>
+                           <a href="customers-delete.php?id=<?=$item['id'];?>" class="btn btn-danger btn-sm"
                            onclick="return confirm('Are you sure you want to delete this data')";
                            >Delete</a>
                         </td>
@@ -63,8 +63,9 @@
 
                    
                 </tbody>
-                    </table>
+                    
             </div>
+            </table>
              <?php 
                      }
                     else{

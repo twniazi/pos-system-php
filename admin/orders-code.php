@@ -20,7 +20,7 @@ if(isset($_POST['addItem'])){
                 $row=mysqli_fetch_assoc($checkProduct);
                 if($row['quantity']<$quantity)
                     {
-                        redirect ('order-create.php','Only',.$row['quantity'].'quantity available');
+                        redirect('order-create.php', 'Only ' . $row['quantity'] . ' quantity available');
                     }
                     $productData=[
                         'product_id' =>$row['id'],
@@ -63,18 +63,20 @@ if(isset($_POST['addItem'])){
 if(isset($_POST['productIncDec'])){
     $productId=validate($_POST['product_id']);
     $quantity=validate($_POST['quantity']);
-    $Flag=false;
+    $flag=false;
     foreach($_SESSION['productItems'] as $key =>$item){
         if($item['product_id']==$productId){
-            $Flag=true;
+            $flag=true;
             $_SESSION['productItems'][$key]['quantity']=$quantity;
         }
     }
     if($flag){
-    jsonResponse(200,'success','quantity updated')
+    jsonResponse(200,'success','quantity updated');
     
-    }else{
-    jsonResponse(500,'error','Something went wrong.Please re-fresh')
+    }
+    else
+        {
+    jsonResponse(500,'error','Something went wrong.Please re-fresh');
     }
 }
 
@@ -129,73 +131,81 @@ if(isset($_POST['saveCustomerBtn']))
         }
     }
 
-    if(isset($_POST['saveOrder']))
-        {
-            $phone=validate($_SESSION['cphone']);
-            $invoice_no=validate($_SESSION['invoice_no']);
-            $payment_mode=validate($_SESSION['payment_mode']);
-            $order_placed_by_id=$_SESSION['loggedInUser']['user_id'];
+    if(isset($_POST['saveOrder'])){
+    $phone=validate($_SESSION['cphone']);
+    $invoice_no=validate($_SESSION['invoice_no']);
+    $payment_mode=validate($_SESSION['payment_mode']);
+    $order_placed_by_id=$_SESSION['loggedInUser']['user_id'];
 
-            $checkCustomer=mysqli_query($conn,"SELECT * FROM customers WHERE phone='$phone' LIMIT 1");
-            if(!$checkCustomer){
-            jsonResponse(500,'error','Something went wrong');
+    $checkCustomer=mysqli_query($conn,"SELECT * FROM customers WHERE phone='$phone' LIMIT 1");
+    if(!$checkCustomer){
+        jsonResponse(500,'error','Something went wrong with DB query');
+    }
 
-            }
-            if(mysqli_num_rows($checkCustomer)>0){
-                $customerData=mysqli_fetch_assoc($checkCustomer);
-                if(!isset($_SESSION['productItems'])){
-                    jsonResponse(404,'warning','No items to place order');
-                }
-                $sessionProducts=$_SESSION['productItems'];
-                $otalAmount=0;
-                foreach($sessionProducts as $amtItem){
-                    $totalAmount+=$amtItem['price']*$amtItem['quantity'];
-
-                }
-                $data=[
-                    'customer_id'=>$customerData['id'],
-                    'tracking_no'=>rand(111111,999999),
-                    'invoice_no'=>$invoice_no,
-                    'total_amount'=>$totalAmount,
-                    'order_date'=>date('y-M-D'),
-                    'order_status'=>'booked',
-                    'payment_mode'=>$payment_mode,
-                    'order_placed_by_id'=>$order_placed_by_id
-                ];
-                $result=insert('orders',$data);
-                $lastOrderId=mysqli_insert_id($conn);
-                foreach($sessionProducts as $prodItem){
-                    $productId=$prodItem['product_id'];
-                    $price=$prodItem['price'];
-                    $quantity=$prodItem['quantity'];
-                    //insrting order items
-                    $dataOrderItem=[
-                        'order_id'=>$lastOrderId,
-                        'product_id'=>$productId,
-                        'price'=>$price,
-                        'quantity'=>$quantity,
-                    ];
-                    $orderItemQuery=insert('order-items',$dataOrderItem);
-                    $checkProductQuantityQuery=mysqli_query($conn,"SELECT * FROM products WHERE id='$productId'");
-                    $productQtyData=mysqli_fetch_assoc($checkProductQuantityQuery);
-                    $totalProductQuantity=$productQtyData['quantity'] - $quantity;
-                    $dataUpdate=[
-                        'quantity'=>$totalProductQuantity
-
-                    ];
-                    $updateProductQty=update('products',$productId,$dataUpdate);
-                }
-                unset($_SESSION['productItemIds']);
-                unset($_SESSION['productItems']);
-                unset($_SESSION['cphone']);
-                unset($_SESSION['payment_mode']);
-                unset($_SESSION['invoice_no']);
-
-                jsonResponse(200,'success','Order placed Successfully');
-            }
-            else{
-                jsonResponse(2404,'warning','No customer found');
-            }
+    if(mysqli_num_rows($checkCustomer)>0){
+        $customerData=mysqli_fetch_assoc($checkCustomer);
+        if(!isset($_SESSION['productItems']) || count($_SESSION['productItems'])==0){
+            jsonResponse(404,'warning','No items to place order');
         }
+
+        $sessionProducts=$_SESSION['productItems'];
+        $totalAmount=0;
+        foreach($sessionProducts as $amtItem){
+            $totalAmount += $amtItem['price'] * $amtItem['quantity'];
+        }
+
+        $data=[
+            'customer_id'=>$customerData['id'],
+            'tracking_no'=>rand(111111,999999),
+            'invoice_no'=>$invoice_no,
+            'total_amount'=>$totalAmount,
+            'order_date'=>date('Y-m-d'),
+            'order_status'=>'booked',
+            'payment_mode'=>$payment_mode,
+            'order_placed_by_id'=>$order_placed_by_id
+        ];
+
+        $result=insert('orders',$data);
+        if(!$result){
+            jsonResponse(500,'error','Failed to insert order');
+        }
+
+        $lastOrderId=mysqli_insert_id($conn);
+
+        foreach($sessionProducts as $prodItem){
+            $productId=$prodItem['product_id'];
+            $price=$prodItem['price'];
+            $quantity=$prodItem['quantity'];
+
+            $dataOrderItem=[
+                'order_id'=>$lastOrderId,
+                'product_id'=>$productId,
+                'price'=>$price,
+                'quantity'=>$quantity,
+            ];
+            $orderItemQuery=insert('order-items',$dataOrderItem);
+
+            // update product stock
+            $checkProductQuantityQuery=mysqli_query($conn,"SELECT * FROM products WHERE id='$productId'");
+            $productQtyData=mysqli_fetch_assoc($checkProductQuantityQuery);
+            $totalProductQuantity=$productQtyData['quantity'] - $quantity;
+
+            $dataUpdate=['quantity'=>$totalProductQuantity];
+            $updateProductQty=update('products',$productId,$dataUpdate);
+        }
+
+        // Clear session
+        unset($_SESSION['productItemIds']);
+        unset($_SESSION['productItems']);
+        unset($_SESSION['cphone']);
+        unset($_SESSION['payment_mode']);
+        unset($_SESSION['invoice_no']);
+
+        jsonResponse(200,'success','Order placed Successfully');
+
+    } else {
+        jsonResponse(404,'warning','No customer found');
+    }
+}
 
 ?>
