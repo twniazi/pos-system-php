@@ -50,7 +50,7 @@
             <div class="col-md-12 mb-3">
                 <label for="">Description</label>
                 
-                <textarea name="descryption" class="form-control" rows="3"></textarea>
+                <textarea name="description" class="form-control" rows="3"></textarea>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Price *</label>

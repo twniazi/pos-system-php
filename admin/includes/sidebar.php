@@ -75,8 +75,20 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+    <div class="small">Logged in as:</div>
+
+    <?php 
+        if(isset($_SESSION['loggedInUser'])){
+            echo $_SESSION['loggedInUser']['name'];
+
+            // ✅ FIX
+            if(isset($_SESSION['loggedInUser']['role_name'])){
+                echo "<br><small>(".$_SESSION['loggedInUser']['role_name'].")</small>";
+            }
+        }else{
+            echo "Guest";
+        }
+    ?>
+</div>
                 </nav>
             </div>

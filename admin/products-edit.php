@@ -70,7 +70,7 @@
             <div class="col-md-12 mb-3">
                 <label for="">Description</label>
                 
-                <textarea name="descryption" class="form-control" rows="3" <?=$product['data']['descryption']?>></textarea>
+                <textarea name="description" class="form-control" rows="3" <?=$product['data']['description']?>></textarea>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Price *</label>
@@ -86,7 +86,7 @@
                 <img src="../<?=$product['data']['image']?>" style="width:40px;height:40px;" alt="Img"/>
             </div>
             <div class="col-md-6">
-                <label>Status (Unchecked=Visible,Checked=Hidden)</label>
+                <label>Status</label>
                 <br>
                 <input type="checkbox" name="status" <?=$product['data']['status']==true > ;'checked':'';?> style="width:30px;height:30px";>
             </div>

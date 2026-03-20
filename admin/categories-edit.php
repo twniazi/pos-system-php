@@ -33,7 +33,7 @@
 
                     <div class="col-md-12 mb-3">
                         <label for="">Description</label>
-                        <textarea name="descryption" class="form-control" rows="3"><?= $data['descryption']; ?></textarea>
+                        <textarea name="description" class="form-control" rows="3"><?= $data['description']; ?></textarea>
                     </div>
 
                     <div class="col-md-6 mb-3">

@@ -1,40 +1,39 @@
 <?php include('includes/header.php');?>\
 
 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                       <?php alertMessage();?>
+                        
                        <div class="row">
                         <div class="col-md-12">
                             <h1 class="mt-4">Dashboard</h1>
                             <?php alertMessage();?>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
-                            <p class="text-sm mb-0 text-capitalize bg-primary">Total Category</p>
+                            <div class="card card-body p-3 bg-primary">
+                            <p class="text-sm mb-0 text-capitalize ">Total Category</p>
                             <h5 class="fw-bold mb-0">
                                 <?=getCount('categories');?>
                             </h5>
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
-                            <p class="text-sm mb-0 text-capitalize bg-warning">Total Products</p>
+                            <div class="card card-body p-3 bg-warning">
+                            <p class="text-sm mb-0 text-capitalize ">Total Products</p>
                             <h5 class="fw-bold mb-0">
                                 <?=getCount('products');?>
                             </h5>
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
-                            <p class="text-sm mb-0 text-capitalize bg-info">Total Admins</p>
+                            <div class="card card-body p-3 bg-info">
+                            <p class="text-sm mb-0 text-capitalize ">Total Admins</p>
                             <h5 class="fw-bold mb-0">
                                 <?=getCount('admins');?>
                             </h5>
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
-                            <p class="text-sm mb-0 text-capitalize bg-danger ">Total Customers</p>
+                            <div class="card card-body p-3 bg-danger ">
+                            <p class="text-sm mb-0 text-capitalize ">Total Customers</p>
                             <h5 class="fw-bold mb-0">
                                 <?=getCount('customers');?>
                             </h5>
@@ -46,7 +45,7 @@
                         <h5>Orders</h5>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
+                            <div class="card card-body p-3 bg-info">
                             <p class="text-sm mb-0 text-capitalize ">Today Orders</p>
                             <h5 class="fw-bold mb-0">
                                <?php
@@ -69,7 +68,7 @@
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <div class="card card-body p-3">
+                            <div class="card card-body p-3 bg-primary">
                             <p class="text-sm mb-0 text-capitalize ">Total Orders</p>
                             <h5 class="fw-bold mb-0">
                                 <?=getCount('orders');?>

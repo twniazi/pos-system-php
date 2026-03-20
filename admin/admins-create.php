@@ -1,5 +1,10 @@
 <?php include('includes/header.php');?>
-
+<?php
+if($_SESSION['loggedInUser']['role_id'] != 1){
+    header("Location: admins.php");
+    exit();
+}
+?>
 <div class="container-fluid px-4">
 <div class="card mt-4 shadow-sm">
     <div class="card-header">
@@ -30,6 +35,24 @@
                 <label for="">Phone Number</label>
                 <input type="number" name="phone"  required class="form-control">
             </div>
+            <div class="col-md-6 mb-3">
+    <label>Role *</label>
+    <select name="role_id" class="form-control" required>
+
+        <?php 
+        $roles = mysqli_query($conn,"SELECT * FROM roles");
+
+        while($role = mysqli_fetch_assoc($roles)){
+            // ❌ Super Admin hide
+            if($role['id'] == 1) continue;
+        ?>
+            <option value="<?=$role['id']?>">
+                <?=$role['name']?>
+            </option>
+        <?php } ?>
+
+    </select>
+</div>
             <div class="col-md-3 mb-3">
                 <label for="">Is Ban </label>
                 <br>
