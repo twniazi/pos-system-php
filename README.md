@@ -15,3 +15,10 @@ A role-based POS management system developed using core PHP and MySQL, featuring
 
 5. Run the project:
    Open XAMPP → Start Apache & MySQL → Access project via browser
+### Technologies
+
+- PHP
+- MySQL
+- HTML
+- CSS
+- JavaScript
